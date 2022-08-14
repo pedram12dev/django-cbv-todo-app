@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>Todo App</h1>
+   
+        {% if request.user.is_authenticated %}
+        <a type="button" class="btn-close" href="{% url 'accounts:logout' %}">log out</a>
+        {% else %}
+        <a type="button" class="btn-close" href="{% url 'accounts:logout' %}">register</a>
+        <a type="button" class="btn-close" href="{% url 'accounts:logout' %}">login</a>
+        {% endif %}
+        <br>
+        <br>
+        {% comment %} <div>
+        {% for task in tasks  %}
+            <h2>{{ task.title }}</h2>
+        {% endfor %}
+
+
+        </div> {% endcomment %}
+        <div>
+            <form method="POST" action="{% url 'create_task' %}">
+                {% csrf_token %}
+                <div>
+                    <input type="text" name="title" placeholder="Enter task title">
+                  <button type="submit">Add</button>
+                  {% for task in tasks %}
+                  <div>
+                    <span type="text">
+                      {% if task.complete == True %}
+                      <p>{{task.title}}</p>
+                      {% else %}
+                      <span>{{task}}</span>
+                      {% endif %}
+                      
+                    </span>
+                    {{form}}
+                    <a type="submit" href="{% url 'delete_task' task.id %}">Delete</a>
+                    <a type="button" href="{% url 'complete_task' task.id %}">Done</a></li>
+                    <a class="dropdown-item" href="{% url 'update_task' task.id %}">Edit</a></li>
+                    {%endfor%}
+                </div>
+    
+            
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>
