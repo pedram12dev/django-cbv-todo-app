@@ -1,1 +1,4 @@
-django
+django 
+djangorestframework
+markdown
+django-filter
